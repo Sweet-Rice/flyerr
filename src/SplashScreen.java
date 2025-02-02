@@ -1,18 +1,22 @@
 import basicgraphics.BasicFrame;
 import basicgraphics.Card;
+import basicgraphics.ClockWorker;
 import basicgraphics.images.BackgroundPainter;
 import basicgraphics.images.Picture;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SplashScreen {
-    private final Card card;
+    public final Card card;
+    private GameScreen gs;
 
-    public SplashScreen(BasicFrame frame) {
+    public SplashScreen(BasicFrame frame, GameScreen gs) {
         card = frame.getCard();
         initializeUI();
+        this.gs = gs;
     }
 
     private void initializeUI() {
@@ -27,10 +31,14 @@ public class SplashScreen {
 
         JButton startButton = new JButton("Start");
         card.add("Button", startButton);
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                gs.show();
+                ClockWorker.initialize(7);
+            }
+        });
     }
 
-    public void setStartAction(ActionListener action) {
-        JButton btn = (JButton) card.getComponent(1);
-        btn.addActionListener(action);
-    }
+
 }

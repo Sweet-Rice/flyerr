@@ -10,20 +10,11 @@ public class GameManager {
 
     public GameManager(BasicFrame frame) {
         this.frame = frame;
-        this.splashScreen = new SplashScreen(frame);
+
         this.gameScreen = new GameScreen(frame);
-
-        initializeGame();
-    }
-
-    private void initializeGame() {
-        splashScreen.setStartAction(( d) -> {
-            gameScreen.show();
-            ClockWorker.initialize(7);
-
-
-        });
-
+        this.splashScreen = new SplashScreen(frame, gameScreen);
+        splashScreen.card.showCard();
 
     }
+
 }
